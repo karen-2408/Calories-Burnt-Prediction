@@ -40,3 +40,23 @@ for i, col in enumerate(features):
 plt.tight_layout()
 plt.show()
 # higher is the duration of the workout higher will be the calories burnt.
+
+# For the same average duration of workout calories burnt by men is higher than that of women.
+features = df.select_dtypes(include='float').columns
+plt.subplots(figsize=(15, 10))
+for i, col in enumerate(features):
+    plt.subplot(2, 3, i + 1)
+    sb.distplot(df[col])
+plt.tight_layout()
+plt.show()
+# It follows normal distribution
+
+df.replace({'male': 0, 'female': 1},
+           inplace=True)
+df.head()
+
+plt.figure(figsize=(8, 8))
+sb.heatmap(df.corr() > 0.9,
+           annot=True,
+           cbar=False)
+plt.show()
