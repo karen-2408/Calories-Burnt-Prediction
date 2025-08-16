@@ -60,3 +60,20 @@ sb.heatmap(df.corr() > 0.9,
            annot=True,
            cbar=False)
 plt.show()
+
+#Model Training
+
+# Now we separate the features and target variables and split them into training and testinf data
+features = df.drop(['User_ID', 'Calories'], axis=1)
+target = df['Calories'].values
+
+X_train, X_val,\
+    Y_train, Y_val = train_test_split(features, target,
+                                      test_size=0.1,
+                                      random_state=22)
+X_train.shape, X_val.shape
+
+# now we normalise the data to obtain stable and fast training
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_val = scaler.transform(X_val)
